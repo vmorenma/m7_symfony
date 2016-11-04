@@ -1,0 +1,9 @@
+{%  extends '::base.html.twig'%}
+
+{% block title %}{{ parent() }}Resultado{% endblock %}
+
+{% block body %}
+    <p> Resultado = {{ resultado }} </p>
+    <br>
+    <li><a href="{{ path('app_calculator_index') }}">Home </a> </li>
+{% endblock %}
