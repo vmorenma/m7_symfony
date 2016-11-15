@@ -1,0 +1,16 @@
+{%  extends '::base.html.twig'%}
+
+{% block title %}{{ parent() }}Form{% endblock %}
+
+{% block body %}
+    <form action="{{ path(action) }}" method ="post">
+        Op1 :<br>
+        Nominator   : &nbsp &nbsp &nbsp <input type="number" name="op1" placeholder="An integer"><br>
+        Denominator : &nbsp  <input type="number" name="op2" placeholder="An integer"><br>
+
+        Op2 :<br>
+        Nominator   : &nbsp &nbsp &nbsp <input type="number" name="op3" placeholder="An integer"><br>
+        Denominator : &nbsp <input type="number" name="op4" placeholder="An integer"><br>
+        <input type="submit" value="OK">
+    </form>
+{% endblock %}

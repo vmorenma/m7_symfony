@@ -1,0 +1,61 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Victor
+ * Date: 28/10/2016
+ * Time: 17:27
+ */
+
+namespace AppBundle\Service;
+
+class Racional
+{
+    private $numerador;
+    private $denominador;
+
+    /**
+    * Racional constructor.
+    * @param $numerador
+    */
+    public function __construct()
+    {
+        $this->numerador = 0;
+        $this->denominador= 0;
+
+    }
+
+    public function __toString()
+    {
+        return $this->getNumerador()." / ".$this->getDenominador();
+    }
+
+    /**
+    * @return mixed
+    */
+    public function getNumerador()
+    {
+        return $this->numerador;
+    }
+    /**
+    * @param mixed $numerador
+    */
+    public function setNumerador($numerador)
+    {
+        $this->numerador = $numerador;
+    }
+    /**
+    * @return mixed
+    */
+    public function getDenominador()
+    {
+        return $this->denominador;
+    }
+    /**
+    * @param mixed $denominador
+    */
+    public function setDenominador($denominador)
+    {
+        $this->denominador = $denominador;
+    }
+
+}
