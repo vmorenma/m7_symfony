@@ -2,3 +2,8 @@ app:
     resource: "@AppBundle/Controller/RationalController.php"
     type:     annotation
     prefix :  rational
+
+app1:
+    resource: "@AppBundle/Controller/CalculatorController.php"
+    type:     annotation
+    prefix:   calculator
