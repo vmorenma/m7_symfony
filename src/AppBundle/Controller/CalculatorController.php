@@ -9,6 +9,7 @@ use AppBundle\Service\Calculator;
 
 class CalculatorController extends Controller
 {
+
     /**
      * @Route("/", name="app_calculator_index")
      * @return \Symfony\Component\HttpFoundation\Response
@@ -38,9 +39,11 @@ class CalculatorController extends Controller
      */
 
     public function doSumAction(Request $request){
-        $calculator= new Calculator($request->request->get('op1'),$request->request->get('op2'));
+        $calculator= $this->get('calculator');
+        $calculator->setOp1($request->request->get('op1'));
+        $calculator->setOp2($request->request->get('op2'));
         $calculator->suma();
-        $r=$calculator->getRes();
+        $r = $calculator->getRes();
         return $this->render(':calculator:resultado.html.twig',
             [
                 'resultado'=>$r
@@ -66,9 +69,11 @@ class CalculatorController extends Controller
      */
 
     public function doRestaAction(Request $request){
-        $calculator= new Calculator($request->request->get('op1'),$request->request->get('op2'));
+        $calculator= $this->get('calculator');
+        $calculator->setOp1($request->request->get('op1'));
+        $calculator->setOp2($request->request->get('op2'));
         $calculator->resta();
-        $r=$calculator->getRes();
+        $r = $calculator->getRes();
         return $this->render(':calculator:resultado.html.twig',
             [
                 'resultado'=>$r
@@ -94,9 +99,11 @@ class CalculatorController extends Controller
      */
 
     public function doMultiAction(Request $request){
-        $calculator= new Calculator($request->request->get('op1'),$request->request->get('op2'));
+        $calculator= $this->get('calculator');
+        $calculator->setOp1($request->request->get('op1'));
+        $calculator->setOp2($request->request->get('op2'));
         $calculator->multiplicacion();
-        $r=$calculator->getRes();
+        $r = $calculator->getRes();
         return $this->render(':calculator:resultado.html.twig',
             [
                 'resultado'=>$r
@@ -123,9 +130,11 @@ class CalculatorController extends Controller
      */
 
     public function doDivisionAction(Request $request){
-        $calculator= new Calculator($request->request->get('op1'),$request->request->get('op2'));
+        $calculator= $this->get('calculator');
+        $calculator->setOp1($request->request->get('op1'));
+        $calculator->setOp2($request->request->get('op2'));
         $calculator->division();
-        $r=$calculator->getRes();
+        $r = $calculator->getRes();
         return $this->render(':calculator:resultado.html.twig',
             [
                 'resultado'=>$r

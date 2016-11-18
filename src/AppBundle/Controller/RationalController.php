@@ -12,7 +12,6 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Service\RationalCalculator;
 
 
 class RationalController extends Controller
@@ -46,8 +45,9 @@ class RationalController extends Controller
 
     public function doMultiAction(Request $request)
     {
-        $RCalculator= new RationalCalculator($request->request->get('op1'),$request->request->get('op2')
-            ,$request->request->get('op3'),$request->request->get('op4'));
+        $RCalculator=$this->get('rational');
+        $RCalculator->setN1($request->request->get('op1'),$request->request->get('op2'));
+        $RCalculator->setN2($request->request->get('op3'),$request->request->get('op4'));
         $RCalculator->multiply();
         $r= $RCalculator->getResult();
         return $this->render(':rational:resultado.html.twig',
@@ -75,8 +75,9 @@ class RationalController extends Controller
      */
     public function doDivisionAction(Request $request)
     {
-        $RCalculator= new RationalCalculator($request->request->get('op1'),$request->request->get('op2')
-            ,$request->request->get('op3'),$request->request->get('op4'));
+        $RCalculator=$this->get('rational');
+        $RCalculator->setN1($request->request->get('op1'),$request->request->get('op2'));
+        $RCalculator->setN2($request->request->get('op3'),$request->request->get('op4'));
         $RCalculator->divide();
         $r= $RCalculator->getResult();
         return $this->render(':rational:resultado.html.twig',
