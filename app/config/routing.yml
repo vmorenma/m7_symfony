@@ -7,3 +7,7 @@ app1:
     resource: "@AppBundle/Controller/CalculatorController.php"
     type:     annotation
     prefix:   calculator
+
+default:
+    resource: "@AppBundle/Controller/DefaultController.php"
+    type:      annotation
