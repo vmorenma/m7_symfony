@@ -17,10 +17,10 @@ class Racional
     * Racional constructor.
     * @param $numerador
     */
-    public function __construct()
+    public function __construct($n= null,$d= null)
     {
-        $this->numerador = 0;
-        $this->denominador= 0;
+        $this->numerador = $n;
+        $this->denominador= $d;
 
     }
 

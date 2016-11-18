@@ -18,7 +18,7 @@ class RationalCalculator
     private $n2;
     private $result;
 
-    public function __construct( $op1=null , $op2=null , $op3=null , $op4=null )
+    public function __construct($op1=null , $op2=null , $op3=null , $op4=null)
     {
         $this->n1= new Racional();
         $this->n2= new Racional();
