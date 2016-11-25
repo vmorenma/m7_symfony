@@ -9,6 +9,9 @@
 namespace AppBundle\Service;
 
 
+use AppBundle\AppBundle;
+use Symfony\Component\EventDispatcher\Tests\Service;
+
 require_once "Racional";
 
 
@@ -63,12 +66,11 @@ class RationalCalculator
         $this->n2->setDenominador($d);
     }
 
-
-
     public function multiply(){
         $this->result->setNumerador($this->n1->getNumerador()*$this->n2->getNumerador());
         $this->result->setDenominador($this->n1->getDenominador()*$this->n2->getDenominador());
     }
+
     public function divide(){
         $this->result->setNumerador($this->n1->getNumerador()*$this->n2->getDenominador());
         $this->result->setDenominador($this->n1->getDenominador()*$this->n2->getNumerador());

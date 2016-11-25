@@ -1,0 +1,15 @@
+{%  extends '::base.html.twig'%}
+
+{% block title %}Productos{% endblock %}
+
+{% block body %}
+    {% for producto in productos  %}
+        {{ producto.id }}<br>
+        {{ producto.name}}<br>
+        {{ producto.descripcion }} <br>
+        {{ producto.precio }}E <br>
+        {{ producto.createdAt | date("d/m/Y H:i:s") }}<br>
+        {{ producto.updatedAt | date("d/m/Y H:i:s") }}<br>
+    {% endfor %}
+
+{% endblock %}

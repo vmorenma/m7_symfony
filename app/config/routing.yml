@@ -7,6 +7,14 @@ app1:
     resource: "@AppBundle/Controller/CalculatorController.php"
     type:     annotation
     prefix:   calculator
+app2:
+    resource: "@AppBundle/Controller/UsuarioController.php"
+    type:     annotation
+    prefix:   usuario
+app3:
+    resource: "@AppBundle/Controller/ProductoController.php"
+    type:     annotation
+    prefix:   producto
 
 default:
     resource: "@AppBundle/Controller/DefaultController.php"
