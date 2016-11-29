@@ -77,6 +77,7 @@ class ProductoController extends Controller
             ->setName($request->request->get('name'))
             ->setDescripcion($request->request->get('description'))
             ->setPrecio($request->request->get('prize'))
+            ->setUpdatedAt(new \DateTime())
         ;
 
         $m->flush();
