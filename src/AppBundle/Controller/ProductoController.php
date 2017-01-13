@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\ProductoType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Producto;
@@ -55,33 +56,48 @@ class ProductoController extends Controller
 
         $producto = $repository->find($id);
 
-        return $this->render(':producto:update.html.twig',
+        $form=$this->createForm(ProductoType::class,$producto);
+
+        return $this->render(':producto:form.html.twig',
             [
-                'producto'=>$producto,
+                'form'=>$form->createView(),
+                'action'=>$this->generateUrl('app_producto_doUpdate',['id'=>$id])
             ]
         );
     }
 
     /**
-     * @Route("/doUpdate", name="app_producto_doUpdate")
+     * @Route("/doUpdate/{id}", name="app_producto_doUpdate")
      * @return \Symfony\Component\HttpFoundation\Response
      */
 
-    public function doUpdateAction(Request $request)
+    public function doUpdateAction($id,Request $request)
     {
         $m= $this->getDoctrine()->getManager();
         $repo= $m->getRepository('AppBundle:Producto');
-        $p1= $repo->find($request->request->get('id'));
+        $p1= $repo->find($id);
+        $form=$this->createForm(ProductoType::class,$p1);
 
-        $p1
-            ->setName($request->request->get('name'))
-            ->setDescripcion($request->request->get('description'))
-            ->setPrecio($request->request->get('prize'))
-            ->setUpdatedAt(new \DateTime())
-        ;
+        //El producto es actualizado con los estos datos
+        $form->handleRequest($request);
+        $p1->setUpdatedAt();
 
-        $m->flush();
-        return $this->redirectToRoute('app_producto_index');
+        if($form->isValid()){
+            $m->flush();
+            $this->addFlash('messages','Product Updated');
+
+            return $this->redirectToRoute('app_producto_index');
+        }
+
+        $this->addFlash('message' , 'Review your form');
+        return $this->render(':producto:form.html.twig',
+            [
+                'form'=> $form->createView(),
+                'action'=> $this->generateUrl('app_producto_doUpdate',['id'=>$id]),
+            ]
+
+        );
+
     }
 
     /**
@@ -104,7 +120,15 @@ class ProductoController extends Controller
      */
     public function insertAction()
     {
-        return $this->render(':producto:insert.html.twig');
+        $p= new Producto();
+        $form= $this->createForm(ProductoType::class,$p);
+
+        return $this->render(':producto:form.html.twig',
+            [
+                'form'    =>  $form->createView(),
+                'action'  => $this->generateUrl('app_producto_doInsert')
+            ]
+        );
     }
 
     /**
@@ -113,18 +137,24 @@ class ProductoController extends Controller
      */
     public function doInsertAction(Request $request)
     {
-        $m= $this->getDoctrine()->getManager();
+        $p=new Producto();
+        $form=$this->createForm(ProductoType::class,$p);
+        $form->handleRequest($request);
+        if($form->isValid()) {
+            $m = $this->getDoctrine()->getManager();
+            $m->persist($p);
+            $m->flush();
 
-        $p1= new Producto();
+            $this->addFlash('messages', 'Product added');
+            return $this->redirectToRoute('app_producto_index');
+        }
+        $this->addFlash('messages','Review your form data');
 
-        $p1
-            ->setName($request->request->get('name'))
-            ->setDescripcion($request->request->get('description'))
-            ->setPrecio($request->request->get('prize'))
-        ;
-        $m->persist($p1);
-        $m->flush();
-
-        return $this->redirectToRoute('app_producto_index');
+        return $this->render(':producto:form.html.twig',
+            [
+                'form'  =>  $form->createView(),
+                'action'=>  $this->generateUrl('app_producto_doInsert')
+            ]
+        );
     }
 }
